@@ -1,0 +1,7 @@
+[user]
+  name = cfanch06
+  email = connortheshark705@gmail.com
+[url "git@github.com:"]
+  insteadOf = https://github.com/
+[include]
+  path = ~/.gitconfig.local

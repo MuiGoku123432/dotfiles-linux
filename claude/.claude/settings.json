@@ -1,0 +1,24 @@
+{
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "seo-geo@opc-skills": true,
+    "frontend-design@claude-plugins-official": true,
+    "svelte-skills@svelte-skills-kit": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-code-toolkit": {
+      "source": {
+        "source": "github",
+        "repo": "spences10/claude-code-toolkit"
+      }
+    },
+    "svelte-skills-kit": {
+      "source": {
+        "source": "github",
+        "repo": "spences10/svelte-skills-kit"
+      }
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "medium"
+}
