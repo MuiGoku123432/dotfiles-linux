@@ -27,7 +27,7 @@ fi
 # --- Clone dotfiles ---
 if [ ! -d "$DOTFILES" ]; then
   info "Cloning dotfiles..."
-  git clone git@github.com:cfanch06/dotfiles.git "$DOTFILES"
+  git clone git@github.com:MuiGoku123432/dotfiles-macos.git "$DOTFILES"
 fi
 
 # --- Brew bundle ---
