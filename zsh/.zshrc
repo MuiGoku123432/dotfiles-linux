@@ -212,3 +212,5 @@ alias gsync='git fetch origin && git pull origin "$(gbr)"'
 
 # Mark that .zshrc has been fully sourced (not exported, stays in current shell only)
 ZSHRC_SOURCED=1
+
+export PATH="$PATH:$(go env GOPATH)/bin"

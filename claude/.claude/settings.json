@@ -1,4 +1,17 @@
 {
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    }
+  },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "medium"
+  "effortLevel": "medium",
+  "model": "opusplan",
+  "statusLine": {
+    "type": "command",
+    "command": "bash /Users/cfanch06/.claude/statusline-command.sh"
+  }
 }
