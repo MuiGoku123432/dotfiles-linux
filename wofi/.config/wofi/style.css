@@ -1,0 +1,50 @@
+/* JARVIS — Deep Space + Arc Cyan */
+
+window {
+  background: rgba(10, 14, 26, 0.95);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 10px;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 14px;
+  color: #c0e8f0;
+}
+
+#input {
+  margin: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 6px;
+  color: #00d4ff;
+  caret-color: #00d4ff;
+}
+
+#input:focus { border-color: rgba(0, 212, 255, 0.6); }
+
+#scroll {
+  margin: 4px;
+}
+
+#inner-box {
+  margin: 4px;
+  background: transparent;
+}
+
+#outer-box {
+  background: transparent;
+}
+
+.entry {
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.entry:selected,
+.entry:hover {
+  background: rgba(0, 212, 255, 0.12);
+  color: #00d4ff;
+}
+
+.entry image {
+  margin-right: 8px;
+}

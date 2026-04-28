@@ -1,0 +1,31 @@
+# JARVIS notification theme
+
+font=JetBrainsMono Nerd Font 11
+background-color=#0a0e1aee
+text-color=#c0e8f0
+border-color=#00d4ff88
+border-radius=8
+border-size=1
+width=360
+height=120
+margin=8
+padding=12
+
+default-timeout=5000
+ignore-timeout=0
+
+layer=overlay
+anchor=top-right
+
+[urgency=low]
+border-color=#005566aa
+default-timeout=3000
+
+[urgency=normal]
+border-color=#00d4ff88
+
+[urgency=high]
+border-color=#ff4466dd
+text-color=#ffccdd
+background-color=#1a0a0eee
+default-timeout=0

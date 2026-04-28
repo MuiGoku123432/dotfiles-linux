@@ -1,0 +1,70 @@
+/* JARVIS HUD — Deep Space + Arc Cyan */
+
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 13px;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(10, 14, 26, 0.88);
+  color: #c0e8f0;
+}
+
+/* Workspaces */
+#workspaces button {
+  padding: 0 8px;
+  color: #4a7a8a;
+  background: transparent;
+}
+
+#workspaces button.active {
+  color: #00d4ff;
+  border-bottom: 2px solid #00d4ff;
+}
+
+#workspaces button:hover {
+  background: rgba(0, 212, 255, 0.1);
+  color: #00d4ff;
+}
+
+/* Window title */
+#window {
+  padding: 0 8px;
+  color: #7ab8c8;
+  font-style: italic;
+}
+
+/* Clock */
+#clock {
+  color: #00d4ff;
+  font-weight: bold;
+  padding: 0 12px;
+}
+
+/* Right modules — shared */
+#cpu,
+#memory,
+#battery,
+#network,
+#pulseaudio,
+#tray {
+  padding: 0 8px;
+  color: #c0e8f0;
+}
+
+/* Alerts */
+#battery.warning { color: #f0c060; }
+#battery.critical { color: #ff4466; }
+#battery.critical.discharging { animation: blink 1s linear infinite; }
+
+@keyframes blink {
+  to { color: #ff4466; background: rgba(255, 68, 102, 0.15); }
+}
+
+/* Separator feel via padding */
+#modules-right > widget:not(:last-child) > * {
+  border-right: 1px solid rgba(0, 212, 255, 0.15);
+}

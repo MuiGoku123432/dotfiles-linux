@@ -1,0 +1,3 @@
+# Drop a `jarvis-lock.png` here at your monitor's native resolution.
+# hyprlock.conf references ~/.config/hypr/wallpapers/jarvis-lock.png and
+# applies a 3-pass blur, so any reasonably dark image will work.

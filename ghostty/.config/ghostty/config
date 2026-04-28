@@ -1,12 +1,14 @@
 theme = TokyoNight
 font-family = JetBrainsMono Nerd Font
 font-size = 19
+background-opacity = 0.85
 background-blur-radius = 20
 mouse-hide-while-typing = true
-window-decoration = true
-# keybind = global:cmd+/=toggle_quick_terminal
-macos-option-as-alt = true
-background-opacity = 0.7
-background-blur-radius = 20 
+window-decoration = false
 keybind = shift+enter=text:\n
 
+# JARVIS palette overrides
+background = #0a0e1a
+foreground = #c0e8f0
+cursor-color = #00d4ff
+cursor-style = bar

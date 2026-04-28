@@ -46,13 +46,18 @@ if [[ -n "$GHOSTTY_RESOURCES_DIR" ]]; then
 fi
 
 # ---------- 2) Cloud SDK (before compinit so completion can register cleanly) ----------
-if [ -f '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc' ]; then
-  . '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc'
-fi
-# Only load completion on fresh shell startup (it runs bashcompinit which can interfere)
-if [[ -z "$ZSHRC_SOURCED" ]] && [ -f '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc' ]; then
-  . '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc'
-fi
+for _gcloud_root in \
+    "${HOME}/google-cloud-sdk" \
+    "${HOME}/.local/share/google-cloud-sdk" \
+    "/usr/lib/google-cloud-sdk" \
+    "$(brew --prefix 2>/dev/null)/share/google-cloud-sdk"; do
+  if [[ -f "$_gcloud_root/path.zsh.inc" ]]; then
+    . "$_gcloud_root/path.zsh.inc"
+    [[ -z "$ZSHRC_SOURCED" && -f "$_gcloud_root/completion.zsh.inc" ]] && . "$_gcloud_root/completion.zsh.inc"
+    break
+  fi
+done
+unset _gcloud_root
 
 # ---------- 3) fzf + completion ----------
 # fzf adds keybindings/completion; then run compinit so everything is indexed once
@@ -107,15 +112,26 @@ if [[ $- == *i* && -z "$FASTFETCH_PRINTED" ]]; then
   export FASTFETCH_PRINTED=1
 fi
 
-# ---------- 7) Optional plugins (auto-detect Homebrew paths) ----------
-# zsh-autosuggestions (only load if not already loaded)
-if [ -r "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && [[ -z "$ZSH_AUTOSUGGEST_STRATEGY" ]]; then
-  source "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# ---------- 7) Optional plugins (multi-distro paths) ----------
+# zsh-autosuggestions
+if [[ -z "$ZSH_AUTOSUGGEST_STRATEGY" ]]; then
+  for _f in \
+      "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" \
+      "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" \
+      "$(brew --prefix 2>/dev/null)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"; do
+    [[ -r "$_f" ]] && { source "$_f"; break; }
+  done
 fi
-# zsh-syntax-highlighting (recommended last, only load if not already loaded)
-if [ -r "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && [[ -z "$ZSH_HIGHLIGHT_HIGHLIGHTERS" ]]; then
-  source "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# zsh-syntax-highlighting (must be last)
+if [[ -z "$ZSH_HIGHLIGHT_HIGHLIGHTERS" ]]; then
+  for _f in \
+      "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+      "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+      "$(brew --prefix 2>/dev/null)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"; do
+    [[ -r "$_f" ]] && { source "$_f"; break; }
+  done
 fi
+unset _f
 
 # ---------- 8) Aliases & functions (after all initialization) ----------
 # Function to ensure critical aliases are always available
@@ -131,7 +147,7 @@ _restore_critical_aliases
 alias ll='ls -lah'
 alias path='print -l $path'
 alias ports='lsof -i -P -n | grep LISTEN'
-alias updatebrew='brew update && brew upgrade && brew cleanup'
+alias updatesys='sudo dnf upgrade --refresh'
 alias weather='curl wttr.in'
 alias nv='nvim'
 

@@ -1,10 +1,6 @@
 {
   "model": "opusplan",
-  "statusLine": {
-    "type": "command",
-    "command": "bash /Users/cfanch06/.claude/statusline-command.sh"
-  },
-  "extraKnownMarketplaces": {
+"extraKnownMarketplaces": {
     "openai-codex": {
       "source": {
         "source": "github",

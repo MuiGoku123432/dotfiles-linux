@@ -1,0 +1,6 @@
+# Flatpak app IDs — installed from flathub
+# Uncomment what you want
+#
+# com.visualstudio.code
+# com.spotify.Client
+# org.prismlauncher.PrismLauncher

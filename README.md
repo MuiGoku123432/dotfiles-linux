@@ -1,77 +1,118 @@
-# dotfiles-macos
+# dotfiles-linux
 
-macOS dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/). One repo, one command to bootstrap a fresh Mac.
+Fedora + Hyprland (JaKooLit) dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
-## What's Included
+## Prerequisites
 
-| Package | What it configures |
-|---------|--------------------|
-| `zsh` | `.zshrc`, `.zshenv`, `.fzf.zsh` |
-| `git` | `.gitconfig`, global gitignore |
-| `ssh` | SSH client config |
-| `nvim` | LazyVim-based Neovim setup |
-| `ghostty` | Ghostty terminal (TokyoNight, JetBrainsMono Nerd Font) |
-| `zellij` | Zellij multiplexer + layouts |
-| `starship` | Starship prompt |
-| `aerospace` | AeroSpace window manager |
-| `sketchybar` | SketchyBar status bar |
-| `claude` | Claude Code settings, commands, and skills |
+1. Fedora installed
+2. [JaKooLit's Hyprland installer](https://github.com/JaKooLit/Fedora-Hyprland) run
+3. `git` and `stow` available (`sudo dnf install git stow`)
 
-## Quick Setup
-
-### Fresh Mac
+## Bootstrap
 
 ```bash
-git clone git@github.com:MuiGoku123432/dotfiles-macos.git ~/.dotfiles
+git clone git@github.com:cfanch06/dotfiles-linux.git ~/.dotfiles
 cd ~/.dotfiles
 ./bootstrap.sh
 ```
 
 The bootstrap script will:
-1. Install Xcode CLI tools and Homebrew
-2. Install all packages from the Brewfile
-3. Back up any conflicting configs to `~/.dotfiles-backup-<timestamp>`
-4. Stow all packages (create symlinks)
-5. Install Volta + Node, Rustup, and configure jenv
-6. Prompt you to set up `~/.zshenv.local` for secrets
+1. Enable any COPRs in `packages/copr.txt`
+2. Install packages from `packages/dnf.txt` (+ cargo, flatpaks if configured)
+3. Run any `scripts/install-*.sh` helpers (Ghostty, etc.)
+4. Back up conflicting configs to `~/.dotfiles-backup-<timestamp>`
+5. Stow all packages (create symlinks into `$HOME`)
+6. Set shell to zsh
 
-### Existing Mac (just re-link)
+## Packages
+
+| Package | Configures |
+|---------|-----------|
+| `zsh` | `.zshrc`, `.zshenv`, `.fzf.zsh` |
+| `nvim` | LazyVim-based Neovim |
+| `git` | global gitignore |
+| `ssh` | SSH client config |
+| `ghostty` | Ghostty terminal — JARVIS theme |
+| `starship` | Starship prompt |
+| `zellij` | Zellij multiplexer + layouts |
+| `claude` | Claude Code settings and commands |
+| `hypr` | Hyprland `UserConfigs/` overrides (layered on JaKooLit) |
+| `waybar` | Waybar — JARVIS HUD style |
+| `wofi` | Wofi launcher |
+| `mako` | Mako notification daemon |
+
+## Login flow (Omarchy-style)
+
+No display manager. Boot goes:
+
+1. GRUB → Plymouth → tty1
+2. systemd autologins via `getty@tty1.service.d/autologin.conf`
+3. zsh's `.zprofile` exec's Hyprland on tty1 only
+4. Desktop comes up directly
+
+The "login screen" you see is **Hyprlock** (`hypr/.config/hypr/hyprlock.conf`), styled as a JARVIS HUD. It fires from:
+- `Super+Esc` (manual)
+- 10 min idle (via `hypridle`)
+- Suspend/resume
+
+`scripts/setup-autologin.sh` handles disabling SDDM, switching the default systemd target to `multi-user.target`, and dropping in the agetty override. It runs from `bootstrap.sh` and is idempotent.
+
+### Wallpaper for the lock screen
+
+Drop a `jarvis-lock.png` at `~/.config/hypr/wallpapers/`. Hyprlock blurs it 3 passes, so any reasonably dark image works.
+
+### Fonts for the JARVIS HUD
+
+`scripts/install-fonts.sh` fetches Orbitron + Rajdhani from the Google Fonts mirror and installs them to `~/.local/share/fonts`. Runs from `bootstrap.sh`.
+
+## Hyprland config strategy
+
+JaKooLit sources `~/.config/hypr/UserConfigs/*.conf` **after** its own configs, so our `hypr/` package wins at the config layer without touching JaKooLit's managed files. Each file in `UserConfigs/` has a single responsibility:
+
+| File | Purpose |
+|------|---------|
+| `UserSettings.conf` | JARVIS theme — gaps, borders, animations |
+| `UserKeybinds.conf` | Personal keybinds |
+| `Startup_Apps.conf` | Autostart: waybar, mako, swww, boot-sequence |
+| `ENVariables.conf` | Wayland env vars |
+| `WindowRules.conf` | Per-app float/pin rules |
+
+## Day-to-day
 
 ```bash
-cd ~/.dotfiles
-make stow
+make stow              # link all packages
+make unstow            # unlink all
+make restow            # re-link (fix stale symlinks)
+make restow-pkg PKG=hypr  # re-link a single package
 ```
 
-### Secrets
+## Secrets
 
-Secrets are **not** tracked in git. After setup, copy the example and fill in your values:
+Secrets are **not** tracked. Create `~/.zshenv.local` and put machine-specific exports there — it gets sourced automatically from `.zshenv`.
 
 ```bash
-cp ~/.dotfiles/secrets/.zshenv.local.example ~/.zshenv.local
+# ~/.zshenv.local
+export GITHUB_TOKEN=...
+export ANTHROPIC_API_KEY=...
 ```
 
-Machine-specific git config (e.g. coderabbit machineId) goes in `~/.gitconfig.local`.
-
-## Day-to-Day
-
-```bash
-make stow       # Link all packages
-make unstow     # Unlink all packages
-make restow     # Re-link (fix stale symlinks)
-make brew-dump  # Update Brewfile from installed packages
-```
+Machine-specific git identity (e.g. work email) goes in `~/.gitconfig.local`.
 
 ## Structure
 
 ```
 ~/.dotfiles/
-├── bootstrap.sh          # Fresh Mac setup script
-├── Makefile               # stow/unstow/restow/brew-dump
-├── Brewfile               # Homebrew packages
-├── .stowrc                # Stow targets $HOME
-├── secrets/               # Gitignored, has .example files
-└── <package>/             # Each package mirrors $HOME layout
-    └── .config/<app>/     # XDG configs nest under .config/
+├── bootstrap.sh          # Fedora bootstrap
+├── Makefile              # stow/unstow/restow
+├── .stowrc               # --target=$HOME
+├── packages/
+│   ├── dnf.txt           # dnf package list
+│   ├── copr.txt          # COPR repos
+│   ├── cargo.txt         # cargo installs
+│   └── flatpak.txt       # flatpak app IDs
+├── scripts/
+│   ├── install-ghostty.sh
+│   └── boot-sequence.sh  # JARVIS startup notifications
+└── <package>/            # each mirrors $HOME layout
+    └── .config/<app>/
 ```
-
-Stow creates symlinks from `$HOME` into `~/.dotfiles/<package>/`, so editing either location edits the same file.

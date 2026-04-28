@@ -1,0 +1,8 @@
+# Cargo packages — only list things not available via dnf
+# Format: crate-name (one per line)
+#
+# Most CLI tools (ripgrep, fd, bat, eza, zoxide, starship) are now in Fedora repos.
+# Add here only if the dnf version is too old or missing.
+#
+# Example:
+# bottom          # system monitor (btm)

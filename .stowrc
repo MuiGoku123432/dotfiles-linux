@@ -1,2 +1,2 @@
---target=/Users/cfanch06
+--target=$HOME
 --ignore=DS_Store

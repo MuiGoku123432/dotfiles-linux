@@ -1,0 +1,76 @@
+# Core utilities
+git
+stow
+curl
+wget
+unzip
+make
+gcc
+cmake
+pkgconf-pkg-config
+
+# Shell
+zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
+
+# Terminal / multiplexer
+zellij
+# ghostty installed via scripts/install-ghostty.sh (not in Fedora repos)
+
+# Editor
+neovim
+
+# CLI tools
+ripgrep
+fd-find
+bat
+eza
+fzf
+zoxide
+starship
+fastfetch
+jq
+
+# Languages
+golang
+java-17-openjdk
+
+# Containers (podman replaces docker/colima on Fedora)
+podman
+podman-compose
+
+# Cloud / k8s
+kubernetes-client
+# gcloud: install manually from cloud.google.com/sdk/docs/install
+# argocd: install binary from github.com/argoproj/argo-cd/releases
+
+# Fonts
+jetbrains-mono-fonts
+google-noto-fonts-common
+google-noto-emoji-color-fonts
+
+# Wayland / Hyprland stack (most pre-installed by JaKooLit — listed for explicitness)
+hyprland
+hyprlock
+hypridle
+hyprpicker
+waybar
+wofi
+mako
+swww
+grim
+slurp
+wl-clipboard
+wl-color-picker
+brightnessctl
+pamixer
+playerctl
+network-manager-applet
+polkit-gnome
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+
+# Dev libs (for opencv/librealsense if needed)
+# opencv
+# librealsense
