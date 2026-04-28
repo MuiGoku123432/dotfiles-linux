@@ -32,7 +32,7 @@ fi
 if [[ -s packages/dnf.txt ]]; then
   info "Installing dnf packages..."
   mapfile -t pkgs < <(grep -vE '^(#|[[:space:]]*$)' packages/dnf.txt)
-  sudo dnf install -y "${pkgs[@]}"
+  sudo dnf install -y --skip-broken "${pkgs[@]}"
 fi
 
 # --- Cargo packages ---

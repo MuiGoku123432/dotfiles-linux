@@ -15,7 +15,7 @@ zsh-autosuggestions
 zsh-syntax-highlighting
 
 # Terminal / multiplexer
-zellij
+# zellij — install via cargo (see packages/cargo.txt) if not already from JaKooLit
 # ghostty installed via scripts/install-ghostty.sh (not in Fedora repos)
 
 # Editor
@@ -34,7 +34,7 @@ jq
 
 # Languages
 golang
-java-17-openjdk
+java-21-openjdk
 
 # Containers (podman replaces docker/colima on Fedora)
 podman
@@ -62,7 +62,7 @@ swww
 grim
 slurp
 wl-clipboard
-wl-color-picker
+# wl-color-picker — not in Fedora repos, install manually if needed
 brightnessctl
 pamixer
 playerctl

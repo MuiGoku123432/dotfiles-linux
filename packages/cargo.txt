@@ -6,3 +6,4 @@
 #
 # Example:
 # bottom          # system monitor (btm)
+zellij
