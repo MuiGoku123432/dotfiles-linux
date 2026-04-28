@@ -1,17 +1,26 @@
 {
+  "model": "opusplan",
+  "statusLine": {
+    "type": "command",
+    "command": "bash /Users/cfanch06/.claude/statusline-command.sh"
+  },
   "extraKnownMarketplaces": {
     "openai-codex": {
       "source": {
         "source": "github",
         "repo": "openai/codex-plugin-cc"
       }
+    },
+    "human-frontier-labs-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "Human-Frontier-Labs-Inc/human-frontier-labs-marketplace"
+      }
     }
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "medium",
-  "model": "opusplan",
-  "statusLine": {
-    "type": "command",
-    "command": "bash /Users/cfanch06/.claude/statusline-command.sh"
+  "enabledPlugins": {
+    "bubbletea-designer@human-frontier-labs-marketplace": true
   }
 }
