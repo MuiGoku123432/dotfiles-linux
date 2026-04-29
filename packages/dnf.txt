@@ -34,6 +34,9 @@ jq
 
 # Languages
 golang
+rust
+cargo
+zig
 java-21-openjdk
 
 # Containers (podman replaces docker/colima on Fedora)
