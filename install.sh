@@ -12,11 +12,17 @@ warn()  { printf '\033[1;33m==> %s\033[0m\n' "$*"; }
 # Ensure ~/.ssh exists with correct permissions (required before stowing ssh pkg)
 mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
 
-# Stow all packages
+# Stow all packages — adopt any conflicting files then restore from git so
+# existing dotfiles on the machine never block the install.
 info "Stowing packages..."
 for pkg in zsh nvim git ssh ghostty starship claude hypr waybar wofi mako zellij fastfetch; do
   [[ -d "$pkg" ]] || continue
-  stow --no-folding -v -t "$HOME" "$pkg" && info "$pkg stowed" || warn "SKIP $pkg (conflict)"
+  if ! stow --no-folding -t "$HOME" --simulate "$pkg" 2>/dev/null; then
+    warn "Conflicts in '$pkg' — adopting and restoring from git..."
+    stow --no-folding -t "$HOME" --adopt "$pkg" 2>/dev/null || true
+    git checkout -- "$pkg" 2>/dev/null || true
+  fi
+  stow --no-folding -v -t "$HOME" "$pkg" && info "$pkg stowed"
 done
 
 # Post-install scripts
