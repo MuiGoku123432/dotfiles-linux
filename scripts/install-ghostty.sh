@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Install Ghostty terminal on Fedora.
-# Tries the refi64/ghostty COPR first; falls back to build-from-source.
+# Tries the scottames/ghostty COPR first; falls back to build-from-source.
 set -euo pipefail
 
 if command -v ghostty >/dev/null 2>&1; then
@@ -11,7 +11,7 @@ fi
 echo "==> Installing Ghostty..."
 
 # Option 1: COPR (fastest)
-if sudo dnf copr enable -y refi64/ghostty 2>/dev/null && sudo dnf install -y ghostty; then
+if sudo dnf copr enable -y scottames/ghostty 2>/dev/null && sudo dnf install -y ghostty; then
   echo "==> Ghostty installed via COPR."
   exit 0
 fi

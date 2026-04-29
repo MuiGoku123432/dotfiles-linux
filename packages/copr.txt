@@ -5,4 +5,4 @@
 # Add COPRs only for packages that aren't (e.g. a newer hyprland build,
 # or ghostty if you don't use the install script).
 
-# refi64/ghostty        # uncomment if you want COPR ghostty instead of build-from-source
+# scottames/ghostty     # uncomment if you want COPR ghostty instead of build-from-source
