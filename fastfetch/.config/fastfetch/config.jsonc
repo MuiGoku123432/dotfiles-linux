@@ -19,8 +19,7 @@
   },
   "modules": [
     {
-      "type": "title",
-      "format": "[36m{user-name}[0m@[36m{host-name}[0m"
+      "type": "title"
     },
     "separator",
     {
