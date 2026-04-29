@@ -15,7 +15,7 @@ command -v dnf >/dev/null 2>&1 || error "dnf not found — Fedora/RHEL only."
 # --- Clone dotfiles if needed ---
 if [[ ! -d "$DOTFILES" ]]; then
   info "Cloning dotfiles..."
-  git clone git@github.com:MuiGoku123432/dotfiles-linux.git "$DOTFILES"
+  git clone https://github.com/MuiGoku123432/dotfiles-linux.git "$DOTFILES"
 fi
 cd "$DOTFILES"
 
