@@ -3,7 +3,7 @@ set -euo pipefail
 
 DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
 BACKUP_DIR="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
-PACKAGES=(zsh nvim git ssh ghostty starship zellij claude hypr waybar wofi mako)
+PACKAGES=(zsh nvim git ssh ghostty starship zellij claude hypr waybar wofi mako fastfetch)
 
 info()  { printf '\033[1;34m==> %s\033[0m\n' "$*"; }
 warn()  { printf '\033[1;33m==> %s\033[0m\n' "$*"; }
@@ -15,7 +15,7 @@ command -v dnf >/dev/null 2>&1 || error "dnf not found — Fedora/RHEL only."
 # --- Clone dotfiles if needed ---
 if [[ ! -d "$DOTFILES" ]]; then
   info "Cloning dotfiles..."
-  git clone git@github.com:cfanch06/dotfiles-linux.git "$DOTFILES"
+  git clone git@github.com:MuiGoku123432/dotfiles-linux.git "$DOTFILES"
 fi
 cd "$DOTFILES"
 
