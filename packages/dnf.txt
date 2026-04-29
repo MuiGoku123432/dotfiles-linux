@@ -55,6 +55,7 @@ google-noto-emoji-color-fonts
 
 # Wayland / Hyprland stack (most pre-installed by JaKooLit — listed for explicitness)
 hyprland
+uwsm
 hyprlock
 hypridle
 hyprpicker
